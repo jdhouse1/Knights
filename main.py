@@ -24,9 +24,9 @@ def square(x,y):
         return s - 7*n - y
 
 class Knight:
-    def __init__(self):
-        self.pos=position((0,0))
-        self.hist = []
+    def __init__(self,startingPosition=(0,0),hist = []):
+        self.pos=position(startingPosition)
+        self.hist = hist
     def move(self):
         minimum = np.inf
         delta = None
@@ -48,3 +48,17 @@ class Knight:
             return self.pos
         else:
             return None
+    def moves(self):
+        while self.move():
+            yield(self.pos)
+    def squares(self):
+        for x in self.moves():
+            yield square(*x)
+
+K = Knight()
+x = list(K.squares())[-1]
+print(x)
+
+J = Knight(hist=[(10,-23)])
+x = list(J.squares())[-1]
+print(x)
